@@ -1,0 +1,280 @@
+{
+  "info": {
+    "_postman_id": "2adadc67-6eff-417c-8c22-ff6c6e9bd9ee",
+    "name": "API Testing - ReqRes",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58527834",
+    "_collection_link": "https://go.postman.co/collection/58527834-2adadc67-6eff-417c-8c22-ff6c6e9bd9ee?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET - Listar usuários",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Resposta está em JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Página retornada é 2\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.page).to.eql(2);\r\n});\r\n\r\npm.test(\"A resposta possui lista de usuários\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.data).to.be.an(\"array\");\r\n    pm.expect(jsonData.data.length).to.be.above(0);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{reqres_api_key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "prod"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users?page=2",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Buscar usuário por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Resposta está em JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Usuário retornado possui ID 2\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.data.id).to.eql(2);\r\n});\r\n\r\npm.test(\"Usuário possui e-mail\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.data.email).to.exist;\r\n});\r\n\r\npm.test(\"Usuário possui nome e sobrenome\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.data.first_name).to.exist;\r\n    pm.expect(jsonData.data.last_name).to.exist;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{reqres_api_key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "prod"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users/2",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Buscar usuário inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Resposta está em JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Usuário não foi encontrado\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.be.an(\"object\");\r\n    pm.expect(Object.keys(jsonData).length).to.eql(0);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{reqres_api_key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "prod"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users/23",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "users",
+            "23"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Criar usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Resposta está em JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Nome retornado está correto\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.name).to.eql(\"Maria Bianca\");\r\n});\r\n\r\npm.test(\"Cargo retornado está correto\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.job).to.eql(\"QA Junior\");\r\n});\r\n\r\npm.test(\"ID foi gerado\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.id).to.exist;\r\n});\r\n\r\npm.test(\"Data de criação foi gerada\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.createdAt).to.exist;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{reqres_api_key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "prod"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Maria Bianca\",\r\n  \"job\": \"QA Junior\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://reqres.in/api/users",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT - Atualizar usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Resposta está em JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Nome atualizado está correto\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.name).to.eql(\"Maria Bianca\");\r\n});\r\n\r\npm.test(\"Cargo atualizado está correto\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.job).to.eql(\"QA Pleno\");\r\n});\r\n\r\npm.test(\"Data de atualização foi gerada\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.updatedAt).to.exist;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{reqres_api_key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "prod"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Maria Bianca\",\n  \"job\": \"QA Pleno\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://reqres.in/api/users/2",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE - Excluir usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 204\", function () {\r\n    pm.response.to.have.status(204);\r\n});\r\n\r\npm.test(\"Resposta não possui conteúdo\", function () {\r\n    pm.expect(pm.response.text()).to.eql(\"\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{reqres_api_key}}"
+          },
+          {
+            "key": "X-Reqres-Env",
+            "value": "prod"
+          }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users/2",
+          "protocol": "https",
+          "host": [
+            "reqres",
+            "in"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
